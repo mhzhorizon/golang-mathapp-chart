@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+
+ name: golang-mathapp-deployment
+
+ namespace: mohamedhadizaira
+
+spec:
+
+  replicas: 3
+
+  selector:
+
+    matchLabels:
+
+     app: golang-mathapp
+
+  template:
+
+    metadata:
+
+     labels:
+
+      app: golang-mathapp
+
+    spec:
+
+     containers:
+
+     - name: golang-mathapp
+
+      ports:
+
+      - containerPort: 8010
+
+      resources:
+
+        requests:
+
+           memory: "64Mi"
+
+           cpu: "250m"
+
+         limits:
+
+           memory: "128Mi"
+
+           cpu: "500m"
+
+         volumeMounts:
+
+         - name: data-volume
+
+           mountPath: "/tmp/data"
+
+         volumes:
+
+         - name: data-volume
+
+           persistentVolumeClaim:
+
+             claimName: golang-mathapp-pvc
+
+      
